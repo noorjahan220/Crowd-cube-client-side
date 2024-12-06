@@ -6,6 +6,8 @@ import MyCampaign from "../Components/MyCampaign/MyCampaign";
 import AddNewCamp from "../Components/AddNewCamp/AddNewCamp";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import DetailsPage from "../Components/DetailsPage/DetailsPage";
+import Signin from "../Components/SignIn/Signin";
+import RegisterPage from "../Components/RegisterPage/RegisterPage";
 
 
 
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
             {
                 path: "/campaigns",
                 element: <AllCampaign />,
-                loader:() => fetch('http://localhost:5000/addCampaign')
+                loader:() => fetch('https://b10-a10-server-side-noorjahan220-eztjlv2qd.vercel.app/addCampaign')
             },
             {
                 path: "/myCampaign",
@@ -40,9 +42,16 @@ const router = createBrowserRouter([
             {
                 path: "/campaign/:id",
                 element: <DetailsPage/>,
-                loader:({params}) => fetch(`http://localhost:5000/addCampaign/${params.id}`)
+                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220-eztjlv2qd.vercel.app/${params.id}`)
             },
-
+            {
+                path: "/signin",
+                element: <Signin />
+            },
+            {
+                path: "/register",
+                element: <RegisterPage />
+            },
 
         ]
 
