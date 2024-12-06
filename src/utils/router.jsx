@@ -24,7 +24,7 @@ const router = createBrowserRouter([
             {
                 path: "/campaigns",
                 element: <AllCampaign />,
-                loader:() => fetch('https://b10-a10-server-side-noorjahan220-eztjlv2qd.vercel.app/addCampaign')
+                loader: () => fetch('https://b10-a10-server-side-noorjahan220.vercel.app/addCampaign')
             },
             {
                 path: "/myCampaign",
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             {
                 path: "/campaign/:id",
                 element: <DetailsPage/>,
-                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220-eztjlv2qd.vercel.app/${params.id}`)
+                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/${params.id}`)
             },
             {
                 path: "/signin",
