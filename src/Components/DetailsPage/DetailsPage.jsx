@@ -3,8 +3,10 @@ import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 
 const DetailsPage = () => {
-  const { user } = useContext(AuthContext); // Get logged-in user data
-  const campaign = useLoaderData(); // Get campaign data from loader
+  const { user } = useContext(AuthContext); 
+
+ 
+  const campaign = useLoaderData();
   const { _id, campaignTitle, campaignType, description, minDonation, deadline } = campaign;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -14,14 +16,15 @@ const DetailsPage = () => {
       return;
     }
   
-    setIsLoading(true); // Start loading
+    setIsLoading(true); 
   
     const donationData = {
       campaignId: _id,
       email: user.email,
-      username: user.displayName || 'Anonymous', // Use displayName if available
-      donationAmount: minDonation, // Donation amount can be adjusted as needed
+      username: user.displayName || 'Anonymous',
+      donationAmount: minDonation,
     };
+  
   
     try {
       const response = await fetch('https://b10-a10-server-side-noorjahan220.vercel.app/donate', {
@@ -43,10 +46,11 @@ const DetailsPage = () => {
       console.error('Error making donation:', error);
       alert('An unexpected error occurred. Please try again later.');
     } finally {
-      setIsLoading(false); // Stop loading
+      setIsLoading(false); 
     }
   };
   
+
   
   return (
     <div>
