@@ -10,6 +10,7 @@ import Signin from "../Components/SignIn/Signin";
 import RegisterPage from "../Components/RegisterPage/RegisterPage";
 import PrivateRoute from "../routes/PrivateRoute";
 import MyDonations from './../Components/MyDonations/MyDonations';
+import Update from "../Components/Update/Update";
 
 
 
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <RegisterPage />
+            },
+            {
+                path: "/update",
+                element: <PrivateRoute><Update/></PrivateRoute>
             },
 
            

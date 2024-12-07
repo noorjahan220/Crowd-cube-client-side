@@ -1,54 +1,73 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
+import { Navigate } from 'react-router-dom';
+
 
 const MyCampaign = () => {
   const { user } = useContext(AuthContext);
   const [campaigns, setCampaigns] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const id = campaigns.length > 0 ? campaigns[0]._id:null;
 
-  useEffect(() => {
-    const fetchUserCampaigns = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-           ` https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignByEmail/${user.email}`
-        );
-        if (!response.ok) {
-          throw new Error('Failed to fetch campaigns.');
-        }
-        const data = await response.json();
-        setCampaigns(data);
-      } catch (err) {
-        setError(err.message);
-      }
-      setIsLoading(false);
-    };
 
-    fetchUserCampaigns();
-  }, [user.email]);
-
-  const handleUpdate = (id) => {
-    // Update campaign logic here
-    console.log(`Update campaign with id: ${id}`);
-  };
-
-  const handleDelete = async (id) => {
+ useEffect(() => {
+  const fetchUserCampaigns = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
-       ` https://b10-a10-server-side-noorjahan220.vercel.app/deleteCampaign/${id}`,
-        {
-          method: 'DELETE',
-        }
+       ` https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignByEmail/${user.email}`
       );
-      if (!response.ok) {
-        throw new Error('Failed to delete the campaign.');
+      if (response.status === 404) {
+       
+        setCampaigns([]); 
+      
+      } else {
+        const data = await response.json();
+        setCampaigns(data);
       }
-      setCampaigns(campaigns.filter((campaign) => campaign._id !== id));
     } catch (err) {
       setError(err.message);
     }
+    setIsLoading(false);
   };
+
+  fetchUserCampaigns();
+}, [user.email]);
+
+ 
+const handleDelete =  id => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+         
+
+        fetch (` https://b10-a10-server-side-noorjahan220.vercel.app/deleteCampaign/${id}`,{
+            method:'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.deleteCount > 0){
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                  });
+            }
+        })
+        }
+      });
+}
+ 
 
   return (
     <div className="p-6 bg-base-200 rounded-lg shadow-lg max-w-4xl mx-auto">
@@ -80,13 +99,14 @@ const MyCampaign = () => {
               <td className="border px-4 py-2 text-center">
                 <button
                   className="btn btn-primary mr-2"
-                  onClick={() => handleUpdate(campaign._id)}
+                onClick={() => { Navigate('/update')}}
+                  
                 >
                   Update
                 </button>
                 <button
                   className="btn btn-danger"
-                  onClick={() => handleDelete(campaign._id)}
+                  onClick={() => handleDelete(id)}
                 >
                   Delete
                 </button>
