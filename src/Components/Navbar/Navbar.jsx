@@ -1,19 +1,46 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../Provider/AuthProvider';
+
+
 
 const Navbar = () => {
+    // Destructure `user` from `AuthContext`
+    const { user , signOutUser } = useContext(AuthContext);
+    const [isHovered, setIsHovered] = useState(false);
 
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
+    const handleLogOut = () => {
+        signOutUser()
+            .then(() => {
+                console.log('user sign out successfully')
+            })
+            .catch(error => console.log('ERROR', error.message))
+    };
     const links = (
         <>
-
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/campaigns">All Campaign</NavLink></li>
-            <li><NavLink to="/addCampaign">Add new Campaign</NavLink></li>
+            {
+                user && <>
+                <li><NavLink to="/addCampaign">Add new Campaign</NavLink></li>
             <li><NavLink to="/myCampaign">My Campaign</NavLink></li>
             <li><NavLink to="/myDonations">My Donations</NavLink></li>
-            <li><NavLink to="/register">register</NavLink></li>
+                
+                
+                </>
+            }
+
         </>
-    )
+    );
 
     return (
         <div className="navbar bg-base-100">
@@ -47,7 +74,47 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {user ? (
+                    <div
+                        className="user-profile"
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        style={{ position: 'relative' }}
+                    >
+                        <a className="btn">{user.email}</a> {/* Display user's email */}
+
+                        {/* Hover Effect: Show Display Name and Log Out Button */}
+                        {isHovered && (
+                            <div
+                                className="user-info"
+                                style={{
+                                    position: 'absolute',
+                                    top: '100%',
+                                    left: '0',
+                                    backgroundColor: 'white',
+                                    padding: '10px',
+                                    borderRadius: '5px',
+                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                                    zIndex: 1,
+                                }}
+                            >
+                                <p>{user.displayName}</p> {/* Display user's display name */}
+                                <button
+                                    className="btn btn-primary"
+                                    onClick={handleLogOut} // Handle log out
+                                >
+                                    Log out
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    // Show Register and SignIn links if the user is not logged in
+                    <>
+                        <NavLink to="/register">Register</NavLink>
+                        <NavLink to="/signin">Sign In</NavLink>
+                    </>
+                )}
             </div>
         </div>
     );

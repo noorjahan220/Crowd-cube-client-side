@@ -1,13 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 const CampaignCard = ({ campaign }) => {
-  const { title, type, description, minDonation, deadline, _id } = campaign;
-  const navigate = useNavigate();
+ 
+  const { campaignTitle, campaignType, description, minDonation, deadline } = campaign;
 
-  const handleDetails = () => {
-    navigate(`/campaign/${_id}`);
-  };
+  console.log(campaign)
+
 
   return (
     <div className="overflow-x-auto">
@@ -25,20 +24,12 @@ const CampaignCard = ({ campaign }) => {
         </thead>
         <tbody>
           <tr>
-            <td>{title}</td>
-            <td>{type}</td>
+            <td>{campaignTitle}</td>
+            <td>{campaignType}</td>
             <td>{description}</td>
             <td>${minDonation}</td>
             <td>{new Date(deadline).toLocaleDateString()}</td>
-            <td>
-              {/* Details Button */}
-              <button
-                className="btn btn-primary btn-sm"
-                onClick={handleDetails}
-              >
-                View Details
-              </button>
-            </td>
+
           </tr>
         </tbody>
       </table>

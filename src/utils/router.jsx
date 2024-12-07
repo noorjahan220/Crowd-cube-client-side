@@ -8,6 +8,8 @@ import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import DetailsPage from "../Components/DetailsPage/DetailsPage";
 import Signin from "../Components/SignIn/Signin";
 import RegisterPage from "../Components/RegisterPage/RegisterPage";
+import PrivateRoute from "../routes/PrivateRoute";
+import MyDonations from './../Components/MyDonations/MyDonations';
 
 
 
@@ -28,11 +30,16 @@ const router = createBrowserRouter([
             },
             {
                 path: "/myCampaign",
-                element: <MyCampaign />
+                element: <PrivateRoute><MyCampaign /></PrivateRoute>
             },
             {
                 path: "/addCampaign",
-                element: <AddNewCamp />,
+                element: <PrivateRoute><AddNewCamp /></PrivateRoute>,
+               
+            },
+            {
+                path: "/donation",
+                element: <PrivateRoute><MyDonations/></PrivateRoute>,
                
             },
             {
@@ -41,8 +48,8 @@ const router = createBrowserRouter([
             },
             {
                 path: "/campaign/:id",
-                element: <DetailsPage/>,
-                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/${params.id}`)
+                element: <PrivateRoute><DetailsPage/></PrivateRoute>,
+                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaign/${params.id}`)
             },
             {
                 path: "/signin",
@@ -53,6 +60,7 @@ const router = createBrowserRouter([
                 element: <RegisterPage />
             },
 
+           
         ]
 
     }

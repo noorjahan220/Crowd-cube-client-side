@@ -1,28 +1,26 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../Providers/AuthProvider';
 import { Navigate } from 'react-router-dom';
-
-
-
-
+import { AuthContext } from '../Provider/AuthProvider';
 
 const PrivateRoute = ({ children }) => {
-   
+    const { user, loading } = useContext(AuthContext);
 
-    const { user, loading } = useContext(AuthContext)
-
-if(loading){
-    return  <span className="loading loading-dots loading-md "></span>
-}
-
-
-
-    if (user) {
-        return children
+    // Handle the loading state
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <span className="loading loading-dots loading-md"></span>
+            </div>
+        );
     }
-    return (
-       <Navigate to = "/login"/>
-    );
+
+    // If user exists, render the child components
+    if (user) {
+        return children;
+    }
+
+    // Otherwise, redirect to the sign-in page
+    return <Navigate to="/signin" />;
 };
 
 export default PrivateRoute;

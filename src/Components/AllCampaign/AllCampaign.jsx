@@ -4,17 +4,19 @@ import CampaignCard from '../CampaignCard/CampaignCard';
 
 const AllCampaign = () => {
 
+    // Correct usage of useLoaderData
+    const campaigns = useLoaderData();
 
-    const campaigns = useLoaderData
-    ();
     return (
         <div>
            <h2>
-            {
-                campaigns.map(campaign =><CampaignCard key={campaign._id} 
-                campaign = {campaign}
-                />)
-            }
+            {campaigns && campaigns.length > 0 ? (
+                campaigns.map(campaign => (
+                    <CampaignCard key={campaign._id} campaign={campaign} />
+                ))
+            ) : (
+                <p>No campaigns available.</p>
+            )}
            </h2>
         </div>
     );
