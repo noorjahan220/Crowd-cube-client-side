@@ -33,22 +33,22 @@ const MyCampaign = () => {
     console.log(`Update campaign with id: ${id}`);
   };
 
-//   const handleDelete = async (id) => {
-//     try {
-//       const response = await fetch(
-//         https://your-backend-url/deleteCampaign/${id},
-//         {
-//           method: 'DELETE',
-//         }
-//       );
-//       if (!response.ok) {
-//         throw new Error('Failed to delete the campaign.');
-//       }
-//       setCampaigns(campaigns.filter((campaign) => campaign._id !== id));
-//     } catch (err) {
-//       setError(err.message);
-//     }
-//   };
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+       ` https://b10-a10-server-side-noorjahan220.vercel.app/deleteCampaign/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      if (!response.ok) {
+        throw new Error('Failed to delete the campaign.');
+      }
+      setCampaigns(campaigns.filter((campaign) => campaign._id !== id));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div className="p-6 bg-base-200 rounded-lg shadow-lg max-w-4xl mx-auto">
