@@ -1,6 +1,7 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
 import RunningCampaign from '../RunningCampaign/RunningCampaign';
+import Newsletter from '../Newslatter/Neslater';
 
 const Home = () => {
     return (
@@ -10,7 +11,7 @@ const Home = () => {
             {/* RunningCampaign */}
             <RunningCampaign/>
             {/* extra two section */}
-            <section></section>
+            <section><Newsletter/></section>
             <section></section>
             {/*  */}
         

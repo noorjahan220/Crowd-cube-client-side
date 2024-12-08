@@ -1,6 +1,6 @@
 # Crowdcube: A Crowdfunding Application 🌐
 
-*Live Site URL*: [https://your-site-link.com](https://your-site-link.com)  
+*Live Site URL*: [ https://a-crowd-funding-application.web.app](https://your-site-link.com)  
 This is a crowdfunding platform where users can raise money for various projects, ideas, or causes.
 
 ## 🚀 Features:
@@ -75,7 +75,8 @@ This is a crowdfunding platform where users can raise money for various projects
    - The Add New Campaign, My Campaign, and Donate features are private routes and require user authentication.
 
 ## 🔗 Links:
-   - *GitHub Repository*: [https://github.com/your-username/crowdcube](https://github.com/your-username/crowdcube)
+   - *GitHub Repository*: [https://github.com/programming-hero-web-course2/b10-a10-client-side-noorjahan220]
+   -[https://github.com/programming-hero-web-course2/b10-a10-server-side-noorjahan220]
    - *Live Site*: [https://your-site-link.com](https://your-site-link.com)
 
 
