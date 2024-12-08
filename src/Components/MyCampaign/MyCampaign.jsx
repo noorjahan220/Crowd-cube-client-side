@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
-import { Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const MyCampaign = () => {
@@ -10,7 +10,7 @@ const MyCampaign = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const id = campaigns.length > 0 ? campaigns[0]._id:null;
-
+const navigate = useNavigate();
 
  useEffect(() => {
   const fetchUserCampaigns = async () => {
@@ -97,13 +97,13 @@ const handleDelete =  id => {
               <td className="border px-4 py-2">{campaign.description}</td>
               <td className="border px-4 py-2">{campaign.minDonation}</td>
               <td className="border px-4 py-2 text-center">
+                <Link to= {`/update/${id}`}>
                 <button
                   className="btn btn-primary mr-2"
-                onClick={() => { Navigate('/update')}}
-                  
                 >
                   Update
                 </button>
+                </Link>
                 <button
                   className="btn btn-danger"
                   onClick={() => handleDelete(id)}

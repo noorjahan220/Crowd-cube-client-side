@@ -50,7 +50,7 @@ const router = createBrowserRouter([
             {
                 path: "/campaign/:id",
                 element: <PrivateRoute><DetailsPage/></PrivateRoute>,
-                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaign/${params.id}`)
+                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignById/${params.id}`)
             },
             {
                 path: "/signin",
@@ -61,8 +61,9 @@ const router = createBrowserRouter([
                 element: <RegisterPage />
             },
             {
-                path: "/update",
-                element: <PrivateRoute><Update/></PrivateRoute>
+                path: "/update/:id",
+                element: <PrivateRoute><Update/></PrivateRoute>,
+                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignById/${params.id}`)
             },
 
            
