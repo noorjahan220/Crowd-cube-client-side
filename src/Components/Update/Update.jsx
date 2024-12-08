@@ -33,7 +33,7 @@ const handleUpdate = event =>{
     email: user.email,
   };
 
-  fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/updateampaign/${_id}`,{
+  fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignById/${_id}`,{
     method:'PUT',
     headers:{
       'content-type' : 'application/json'

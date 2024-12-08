@@ -1,14 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { AuthContext } from '../../Provider/AuthProvider';
-
-
+import React, { useContext, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Navbar = () => {
-    // Destructure `user` from `AuthContext`
-    const { user , signOutUser } = useContext(AuthContext);
+    const { user, signOutUser } = useContext(AuthContext);
     const [isHovered, setIsHovered] = useState(false);
-
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -20,99 +16,129 @@ const Navbar = () => {
 
     const handleLogOut = () => {
         signOutUser()
-            .then(() => {
-                console.log('user sign out successfully')
-            })
-            .catch(error => console.log('ERROR', error.message))
+            .then(() => console.log("User signed out successfully"))
+            .catch((error) => console.log("ERROR", error.message));
     };
+
     const links = (
         <>
-            <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/campaigns">All Campaign</NavLink></li>
-            {
-                user && <>
-                <li><NavLink to="/addCampaign">Add new Campaign</NavLink></li>
-            <li><NavLink to="/myCampaign">My Campaign</NavLink></li>
-            <li><NavLink to="/myDonations">My Donations</NavLink></li>
-                
-                
+            <li>
+                <NavLink to="/" className="hover:text-green-500">
+                    Home
+                </NavLink>
+            </li>
+            <li>
+                <NavLink to="/campaigns" className="hover:text-green-500">
+                    All Campaign
+                </NavLink>
+            </li>
+            {user && (
+                <>
+                    <li>
+                        <NavLink to="/addCampaign" className="hover:text-green-500">
+                            Add New Campaign
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/myCampaign" className="hover:text-green-500">
+                            My Campaign
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/myDonations" className="hover:text-green-500">
+                            My Donations
+                        </NavLink>
+                    </li>
                 </>
-            }
-
+            )}
         </>
     );
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-white shadow-md sticky top-0 z-50">
             <div className="navbar-start">
-                <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                {/* Mobile Menu */}
+                <div className="dropdown lg:hidden">
+                    <label tabIndex={0} className="btn btn-ghost">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
+                            className="h-6 w-6"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke="currentColor">
+                            stroke="currentColor"
+                        >
                             <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 strokeWidth="2"
-                                d="M4 6h16M4 12h8m-8 6h16" />
+                                d="M4 6h16M4 12h8m-8 6h16"
+                            />
                         </svg>
-                    </div>
+                    </label>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52"
+                    >
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                {/* Brand Name/Logo */}
+                <NavLink to="/" className="text-2xl font-bold text-green-600">
+                    Crowdcube
+                </NavLink>
             </div>
+
+            {/* Desktop Menu */}
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                    {links}
-                </ul>
+                <ul className="menu menu-horizontal px-1 space-x-4">{links}</ul>
             </div>
+
             <div className="navbar-end">
                 {user ? (
                     <div
-                        className="user-profile"
+                        className="dropdown dropdown-hover"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        style={{ position: 'relative' }}
                     >
-                        <a className="btn">{user.email}</a> {/* Display user's email */}
-
-                        {/* Hover Effect: Show Display Name and Log Out Button */}
-                        {isHovered && (
-                            <div
-                                className="user-info"
-                                style={{
-                                    position: 'absolute',
-                                    top: '100%',
-                                    left: '0',
-                                    backgroundColor: 'white',
-                                    padding: '10px',
-                                    borderRadius: '5px',
-                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                                    zIndex: 1,
-                                }}
-                            >
-                                <p>{user.displayName}</p> {/* Display user's display name */}
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={handleLogOut} // Handle log out
-                                >
-                                    Log out
-                                </button>
+                        <label
+                            tabIndex={0}
+                            className="btn btn-ghost btn-circle avatar flex items-center space-x-2"
+                        >
+                            <div className="w-8 rounded-full">
+                                <img src={user.photoURL || "https://via.placeholder.com/150"} alt="User Avatar" />
                             </div>
-                        )}
+                        </label>
+                        <ul
+                            tabIndex={0}
+                            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52"
+                        >
+                            <li>
+                                <span className="font-medium">{user.displayName || "User"}</span>
+                            </li>
+                            <li>
+                                <button
+                                    className="btn btn-error btn-sm text-white"
+                                    onClick={handleLogOut}
+                                >
+                                    Log Out
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 ) : (
-                    // Show Register and SignIn links if the user is not logged in
                     <>
-                        <NavLink to="/register">Register</NavLink>
-                        <NavLink to="/signin">Sign In</NavLink>
+                        <NavLink
+                            to="/register"
+                            className="btn btn-outline btn-sm mx-1 hover:text-green-500"
+                        >
+                            Register
+                        </NavLink>
+                        <NavLink
+                            to="/signin"
+                            className="btn btn-primary btn-sm text-white"
+                        >
+                            Sign In
+                        </NavLink>
                     </>
                 )}
             </div>

@@ -88,7 +88,7 @@ const RegisterPage = () => {
             })
             .catch((error) => {
                 setErrorMessage(error.message);
-                toast.error(error.message);
+               
             });
     };
 
