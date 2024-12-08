@@ -36,22 +36,18 @@ const router = createBrowserRouter([
             {
                 path: "/addCampaign",
                 element: <PrivateRoute><AddNewCamp /></PrivateRoute>,
-               
+
             },
             {
                 path: "/donation",
-                element: <PrivateRoute><MyDonations/></PrivateRoute>,
-               
+                element: <PrivateRoute><MyDonations /></PrivateRoute>,
+
             },
             {
                 path: "*",
                 element: <ErrorPage />
             },
-            {
-                path: "/campaign/:id",
-                element: <PrivateRoute><DetailsPage/></PrivateRoute>,
-                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignById/${params.id}`)
-            },
+          
             {
                 path: "/signin",
                 element: <Signin />
@@ -60,13 +56,21 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <RegisterPage />
             },
-            {
-                path: "/update/:id",
-                element: <PrivateRoute><Update/></PrivateRoute>,
-                loader:({params}) => fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignById/${params.id}`)
-            },
-
            
+            {
+                path: "/campaign/:id",
+                element: <PrivateRoute><DetailsPage /></PrivateRoute>,
+                loader: ({ params }) =>
+                  fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignById/${params.id}`)
+              },
+              {
+                path: "/update/:id",
+                element: <PrivateRoute><Update /></PrivateRoute>,
+                loader: ({ params }) =>
+                  fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignById/${params.id}`)
+              },
+
+
         ]
 
     }

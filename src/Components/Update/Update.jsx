@@ -7,7 +7,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const Update = () => {
   const update = useLoaderData();
-  const { campaignTitle, campaignType,image, description, minDonation, deadline } = update
+  const { _id,campaignTitle, campaignType,image, description, minDonation, deadline } = update
   const { user } = useContext(AuthContext);
 
   console.log(update._id)
@@ -33,7 +33,7 @@ const handleUpdate = event =>{
     email: user.email,
   };
 
-  fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/addCampaignById/${update._id}`,{
+  fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/updateampaign/${_id}`,{
     method:'PUT',
     headers:{
       'content-type' : 'application/json'
