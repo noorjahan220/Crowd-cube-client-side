@@ -1,73 +1,91 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Signin = () => {
-
-    const {signInUser} = useContext(AuthContext);
+    const { signInUser } = useContext(AuthContext);
+ const navigate = useNavigate()
     const handleSignin = e => {
         e.preventDefault();
-
+        const form = e.target;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(password, email)
+        console.log(password, email);
 
-        signInUser(email,password)
-        .then(result =>{
-            console.log(result.user)
-            const lastSignInTime = result?.user?.metadata?.lastSignInTime;
-            const loginInfo = {email, lastSignInTime}
+        signInUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                const lastSignInTime = result?.user?.metadata?.lastSignInTime;
+                const loginInfo = { email, lastSignInTime };
 
-            fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/users`,{
-                method:'PATCH',
-                headers:{
-                    'content-type' : 'application/json'
-                },
-                body:JSON.stringify(loginInfo)
+                fetch(`https://b10-a10-server-side-noorjahan220.vercel.app/users`, {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: JSON.stringify(loginInfo),
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        form.reset();
+                        toast.success('Successfully Signin!') 
+                        navigate('/');
+                        console.log("Sign-in info updated in DB", data);
+                    });
             })
-            .then(res => res.json())
-            .then(data=>{
-                console.log("sign In info update in db",data)
-            })
-        })
-        .catch(error=>{
-            console.log(error)
-        })
+            .catch(error => {
+                console.log(error);
+                toast.error("This didn't work.")
+            });
+    };
 
-       
-    }
     return (
-        <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-            <div className="text-center lg:text-left">
-                <h1 className="text-5xl font-bold">login</h1>
-
-            </div>
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <form onSubmit={handleSignin} className="card-body">
-                    <div className="form-control">
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-16">
+            <div className="w-full max-w-md bg-white shadow-md rounded-lg p-8">
+                <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Login</h1>
+                <form onSubmit={handleSignin} className="space-y-4">
+                    <div className="form-group">
                         <label className="label">
-                            <span className="label-text">Email</span>
+                            <span className="label-text text-gray-700">Email</span>
                         </label>
-                        <input type="email" placeholder="email" name="email" className="input input-bordered" required />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            className="input input-bordered w-full"
+                            required
+                        />
                     </div>
-                    <div className="form-control">
+                    <div className="form-group">
                         <label className="label">
-                            <span className="label-text">Password</span>
+                            <span className="label-text text-gray-700">Password</span>
                         </label>
-                        <input type="password" placeholder="password" name="password" className="input input-bordered" required />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            className="input input-bordered w-full"
+                            required
+                        />
                         <label className="label">
-                            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                            <a href="#" className="label-text-alt link link-hover text-gray-600">Forgot password?</a>
                         </label>
                     </div>
-                    <div className="form-control mt-6">
-                        <button className="btn btn-primary">Login</button>
+                    <div className="form-group mt-6">
+                        <button className="btn btn-primary w-full bg-gray-800 text-white hover:bg-gray-700 transition">
+                            Login
+                        </button>
                     </div>
-                    <Link to="/register" >Register</Link> 
+                    <div className="text-center mt-4 text-gray-600">
+                        Don't have an account?{' '}
+                        <Link to="/register" className="text-gray-800 hover:underline">
+                            Register
+                        </Link>
+                    </div>
                 </form>
             </div>
         </div>
-    </div>
     );
 };
 

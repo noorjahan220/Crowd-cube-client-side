@@ -5,6 +5,7 @@ import {
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
+    updateProfile
 } from 'firebase/auth';
 import React, { createContext, useEffect, useState, useMemo } from 'react';
 import { auth } from '../firebase/firebase.init';
@@ -16,9 +17,21 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     // Create a new user
-    const createUser = (email, password) => {
+    const createUser = async (email, password, name, photoURL) => {
         setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(userCredential.user, {
+                displayName: name,
+                photoURL: photoURL,
+            });
+            setUser({ ...userCredential.user, displayName: name, photoURL: photoURL });
+            setLoading(false);
+            return userCredential;
+        } catch (error) {
+            setLoading(false);
+            throw error;
+        }
     };
 
     // Sign in an existing user
@@ -62,13 +75,7 @@ const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={userInfo}>
-            {loading ? (
-                <div className="flex justify-center items-center h-screen">
-                    <span className="loading loading-dots loading-md"></span>
-                </div>
-            ) : (
-                children
-            )}
+            {children}
         </AuthContext.Provider>
     );
 };
