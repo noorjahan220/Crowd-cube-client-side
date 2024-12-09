@@ -19,7 +19,7 @@ const RunningCampaign = () => {
         setCampaigns(limitedCampaigns);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching campaigns:", error);
+       
         setLoading(false);
       }
     };

@@ -19,7 +19,7 @@ const Navbar = () => {
     signOutUser()
       .then(() => {
         toast.success('Successfully signed out!');
-        console.log('User signed out successfully');
+        
       })
       .catch(() => toast.error("Didn't sign out. Please try again."));
   };

@@ -1,10 +1,9 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React from 'react'; import { useLoaderData } from 'react-router-dom';
 import CampaignCard from '../CampaignCard/CampaignCard';
 
 const AllCampaign = () => {
 
-    // Correct usage of useLoaderData
+    
     const campaigns = useLoaderData();
 
     return (
