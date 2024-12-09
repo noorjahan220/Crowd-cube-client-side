@@ -1,0 +1,30 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+  }
+  
+  [data-theme='dark'] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  /* Additional styles for other elements */
+  .button {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+  }
+  

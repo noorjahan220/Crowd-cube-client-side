@@ -3,13 +3,10 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 
 const AddNewCamp = () => {
-
-
   const { user } = useContext(AuthContext);
 
   const handleAddCamp = async (event) => {
     event.preventDefault();
-
 
     const form = event.target;
 
@@ -50,45 +47,46 @@ const AddNewCamp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <div><Toaster /></div>
-      <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Create Campaign</h2>
-
-
-
+      <div className="w-full max-w-2xl bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 transition duration-300 hover:shadow-2xl">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
+          <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            Create Campaign
+          </span>
+        </h2>
         <form onSubmit={handleAddCamp} className="space-y-4">
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-gray-700">Campaign Thumbnail URL</span>
+              <span className="label-text text-black dark:text-black">Campaign Thumbnail URL</span>
             </label>
             <input
               type="url"
               name="image"
               placeholder="Enter image URL"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-gray-100 dark:bg-gray-700 text-black dark:text-black"
               required
             />
           </div>
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-gray-700">Campaign Title</span>
+              <span className="label-text text-black dark:text-black">Campaign Title</span>
             </label>
             <input
               type="text"
               name="name"
               placeholder="Enter campaign title"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-gray-100 dark:bg-gray-700 text-black dark:text-black"
               required
             />
           </div>
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-gray-700">Campaign Type</span>
+              <span className="label-text text-black dark:text-black">Campaign Type</span>
             </label>
-            <select name="campaignType" className="select select-bordered w-full" required>
+            <select name="campaignType" className="select select-bordered w-full bg-gray-100 dark:bg-gray-700 text-black dark:text-black" required>
               <option value="personal_issue">Personal Issue</option>
               <option value="startup">Startup</option>
               <option value="business">Business</option>
@@ -98,67 +96,67 @@ const AddNewCamp = () => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-gray-700">Description</span>
+              <span className="label-text text-black dark:text-black">Description</span>
             </label>
             <textarea
               name="description"
               placeholder="Describe your campaign"
-              className="textarea textarea-bordered w-full"
+              className="textarea textarea-bordered w-full bg-gray-100 dark:bg-gray-700 text-black dark:text-black"
               required
             />
           </div>
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-gray-700">Minimum Donation Amount</span>
+              <span className="label-text text-black dark:text-black">Minimum Donation Amount</span>
             </label>
             <input
               type="number"
               name="minDonation"
               placeholder="Enter minimum donation amount"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-gray-100 dark:bg-gray-700 text-black dark:text-black"
               required
             />
           </div>
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-gray-700">Deadline</span>
+              <span className="label-text text-black dark:text-black">Deadline</span>
             </label>
             <input
               type="date"
               name="deadline"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-gray-100 dark:bg-gray-700 text-black dark:text-black"
               required
             />
           </div>
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-gray-700">User Email</span>
+              <span className="label-text text-black dark:text-black">User Email</span>
             </label>
             <input
               type="email"
               value={user.email}
               readOnly
-              className="input input-bordered w-full bg-gray-200"
+              className="input input-bordered w-full bg-gray-200 dark:bg-gray-600 text-black dark:text-black"
             />
           </div>
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-gray-700">User Name</span>
+              <span className="label-text text-black dark:text-black">User Name</span>
             </label>
             <input
               type="text"
               value={user.displayName}
               readOnly
-              className="input input-bordered w-full bg-gray-200"
+              className="input input-bordered w-full bg-gray-200 dark:bg-gray-600 text-black dark:text-black"
             />
           </div>
 
           <div className="form-control mt-6">
-            <button type="submit" className="btn btn-primary w-full bg-gray-800 text-white hover:bg-gray-700 transition" >
+            <button type="submit" className="btn w-full bg-blue-500 text-white hover:bg-blue-600 transition duration-300">
               Add New Campaign
             </button>
           </div>

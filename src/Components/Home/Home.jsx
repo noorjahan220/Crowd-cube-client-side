@@ -12,8 +12,9 @@ const Home = () => {
             {/* RunningCampaign */}
             <RunningCampaign/>
             {/* extra two section */}
-            <section><Newsletter/></section>
+           
             <section><HowWeWork/></section>
+            <section><Newsletter/></section>
             {/*  */}
         
         </div>

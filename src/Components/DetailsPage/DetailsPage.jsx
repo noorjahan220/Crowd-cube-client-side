@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const DetailsPage = () => {
-  const { user } = useContext(AuthContext); 
+  const { user } = useContext(AuthContext);
   const campaign = useLoaderData();
   const { _id, campaignTitle, campaignType, description, minDonation, deadline } = campaign;
   const [isLoading, setIsLoading] = useState(false);
@@ -13,16 +14,16 @@ const DetailsPage = () => {
       alert('Missing required fields. Please ensure all fields are filled out.');
       return;
     }
-  
-    setIsLoading(true); 
-  
+
+    setIsLoading(true);
+
     const donationData = {
       campaignId: _id,
       email: user.email,
       username: user.displayName || 'Anonymous',
       donationAmount: minDonation,
     };
-  
+
     try {
       const response = await fetch('https://b10-a10-server-side-noorjahan220.vercel.app/donate', {
         method: 'POST',
@@ -31,19 +32,20 @@ const DetailsPage = () => {
         },
         body: JSON.stringify(donationData),
       });
-  
+
       if (response.ok) {
         const result = await response.json();
-        alert('Donation successful! Thank you for your support.');
+        toast.success('Donation successful! Thank you for your support.');
+        
       } else {
-        console.log("Error with donation:", response.statusText);
-        alert('Donation failed. Please try again.');
+
+        toast.error('Donation failed. Please try again.');
       }
     } catch (error) {
-      console.error('Error making donation:', error);
-      alert('An unexpected error occurred. Please try again later.');
+
+      toast.error('An unexpected error occurred. Please try again later.');
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
 

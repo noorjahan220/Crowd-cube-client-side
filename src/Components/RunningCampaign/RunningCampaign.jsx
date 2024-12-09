@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const RunningCampaign = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -32,20 +32,29 @@ const RunningCampaign = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Running Campaigns</h2>
+    <div className="container mx-auto px-4 py-8 mt-4 mb-4">
+      <h2 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 mb-8 text-center">
+        <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+          Running Campaigns
+        </span>
+      </h2>
       {campaigns.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {campaigns.map(campaign => (
-            <div key={campaign._id} className="bg-white shadow-md rounded-lg overflow-hidden">
+            <div
+              key={campaign._id}
+              className="bg-white dark:bg-gray-700 shadow-md rounded-lg overflow-hidden flex flex-col transition duration-300 ease-in-out transform hover:scale-105"
+            >
               <img src={campaign.image} alt={campaign.campaignTitle} className="w-full h-48 object-cover" />
-              <div className="p-4">
-                <h3 className="text-xl font-bold text-gray-800">{campaign.campaignTitle}</h3>
-                <p className="text-gray-700 mb-2">{campaign.description}</p>
-                <p className="text-sm text-gray-600">Deadline: {new Date(campaign.deadline).toLocaleDateString()}</p>
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{campaign.campaignTitle}</h3>
+                  <p className="text-gray-700 dark:text-gray-300 mb-4">{campaign.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Deadline: {new Date(campaign.deadline).toLocaleDateString()}</p>
+                </div>
                 <button
                   onClick={() => navigate(`/campaign/${campaign._id}`)}
-                  className="mt-4 btn btn-primary bg-gray-800 text-white hover:bg-gray-700 transition w-full"
+                  className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600 transition w-full"
                 >
                   See More
                 </button>
@@ -54,7 +63,7 @@ const RunningCampaign = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-700">No running campaigns found.</p>
+        <p className="text-center text-gray-700 dark:text-gray-300">No running campaigns found.</p>
       )}
     </div>
   );
