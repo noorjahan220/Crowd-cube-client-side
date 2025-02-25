@@ -1,6 +1,6 @@
 # Crowdcube: A Crowdfunding Application 🌐
 
-*Live Site URL*: [ https://a-crowd-funding-application.web.app](https://your-site-link.com)  
+*Live Site URL*: [ https://a-crowd-funding-application.web.app ]   
 This is a crowdfunding platform where users can raise money for various projects, ideas, or causes.
 
 ## 🚀 Features:
